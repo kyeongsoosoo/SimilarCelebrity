@@ -10,8 +10,7 @@ async function test(){
 
     
 });
-    // const data = await promise.json();
-    // console.log(data);
+
     console.log(promise)
 }
 

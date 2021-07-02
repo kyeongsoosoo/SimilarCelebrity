@@ -1,5 +1,6 @@
 import Controller from "./Controller";
 import Store from "./Store";
+import '../style.css';
 
 document.addEventListener("DOMContentLoaded", main);
 

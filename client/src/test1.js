@@ -7,6 +7,8 @@ async function test(){
     headers: {
         'Access-Control-Allow-Origin': true,
     }
+
+    
 });
     // const data = await promise.json();
     // console.log(data);

@@ -1,13 +1,14 @@
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 8000;
-const bodyParser = require('body-parser');
+const multer = require("multer");
+var fs = require('fs');
+// const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const config = require('./config/key');
+app.use(express.json())
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 app.use(
   cors({
@@ -17,35 +18,47 @@ app.use(
   }),
 );
 
-app.get('/', (req, res) => {
+var upload = multer().single("file");
+
+app.use("/uploads", express.static("uploads"));
+
+app.post("/uploadImage", (req, res) => {
+  upload(req, res, (err) => {
+
+
+    var request = require('request');
+  
+    var api_url = 'https://openapi.naver.com/v1/vision/celebrity'; // 유명인 인식
+
+    var _formData = {
+      image:'image',
+      image: req.file.buffer
+    };
+
+    request.post({url:api_url, formData:_formData,
+     headers: {'X-Naver-Client-Id':config.CLIENT_ID, 'X-Naver-Client-Secret': config.CLIENT_SECRET}},(error, response, body) => {
+       return res.send(body);
+    })
+  });
+});
+
+
+app.get('/find-image', (req, res) => {
   var request = require('request');
-  const url = "https://openapi.naver.com/v1/search/image?query=yuna&display=10&start=1&sort=sim"
+  const keyword = req.query.keyword;
+  const url = `https://openapi.naver.com/v1/search/image?query=${keyword}&display=4&start=1&sort=sim`
   request.get({url,
-    headers: {'X-Naver-Client-Id':config.CLIENT_ID, 'X-Naver-Client-Secret': config.CLIENT_SECRET}},
-     (error, response, body) => {
-      console.log(body)
-      return res.status(200).send(response)
-    });
+    headers: {'X-Naver-Client-Id':config.CLIENT_ID, 'X-Naver-Client-Secret': config.CLIENT_SECRET}},(error, response, body) => {
+      return res.status(200).send(body);
+   })
 
 });
-app.get('/face', function (req, res) {
+app.post('/face', function (req, res) {
   var request = require('request');
-  console.log(req.body);
+
   var api_url = 'https://openapi.naver.com/v1/vision/celebrity'; // 유명인 인식
+  return res.status(200).send('hi')
 
-  //var api_url = 'https://openapi.naver.com/v1/vision/face'; // 얼굴 감지
-
-  var _formData = {
-    image:'image',
-    image: fs.createReadStream(__dirname + 'YOUR_FILE_NAME') // FILE 이름
-  };
-   var _req = request.post({url:api_url, formData:_formData,
-     headers: {'X-Naver-Client-Id':config.CLIENT_ID, 'X-Naver-Client-Secret': config.CLIENT_SECRET}}).on('response', function(response) {
-      console.log(response.statusCode) // 200
-      console.log(response.headers['content-type'])
-   });
-   console.log( request.head  );
-   _req.pipe(res); // 브라우저로 출력
 });
 
 

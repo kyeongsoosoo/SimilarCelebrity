@@ -12,7 +12,16 @@ module.exports = {
         test: /\.(js)$/,
         exclude: /(node_modules|bower_components)/,
         loader: "babel-loader",
-        options: { presets: ["@babel/env"] },
+        options: {
+          presets: [
+            [
+              '@babel/preset-env',
+              {
+                targets: { chrome: '55' } /* chrome 55 이상으로 지정 */,
+              },
+            ],
+          ],
+        },
       },
       {
         test: /\.css$/,

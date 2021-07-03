@@ -2,6 +2,18 @@ ul {
     list-style: none;
 }
 
-*{
-    color: red;
+input[type='file']{
+    display: none;
+}
+
+ul.celeb-list{
+    display: grid;
+    grid-template-columns: repeat(2, 150px);
+    grid-template-rows: repeat(2,150px);
+}
+
+img{
+    width: 150px;
+    height: 150px;
+    object-fit: fill;
 }

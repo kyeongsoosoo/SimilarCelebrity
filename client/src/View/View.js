@@ -2,6 +2,9 @@ import { emit, on } from "../helpers";
 
 export default class View {
     constructor(element) {
+
+        if (!element) throw "no element";
+
         this.element = element;
         this.originalDisplay = this.element.style.display || "";
 
@@ -14,7 +17,7 @@ export default class View {
     }
 
     show() {
-        this.element.style.display = this.originalDisplay;
+        this.element.style.display = "block"
         return this;
     }
 

@@ -4,8 +4,9 @@ import '../style.css';
 import ButtonView from "./View/ButtonView";
 import MyPicView from "./View/MyPicView";
 import CelebView from "./View/CelebView";
+import SpinnerView from "./View/SpinnerView";
 
-document.addEventListener("DOMContentLoaded", main);
+document.addEventListener("defer", main);
 
 function main() {
     const store = new Store();
@@ -14,6 +15,7 @@ function main() {
         buttonView : new ButtonView(),
         myPicView : new MyPicView(),
         celebView : new CelebView(),
+        spinnerView : new SpinnerView(),
     };
 
     new Controller(store, views);

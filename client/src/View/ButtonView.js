@@ -39,7 +39,6 @@ export default class ButtonView extends View {
     handleClick(event) {
     
         const value = event.target.dataset.tab;
-        console.log('twice?')
         if(value === "MYPIC"){
             this.input.click();
         }
@@ -49,7 +48,6 @@ export default class ButtonView extends View {
         else if(value === "RETRY"){
             this.emit("@reset");
         }
-
         this.emit("@change", { value });
       }
 

@@ -5,6 +5,7 @@ export default class Controller{
             buttonView,
             myPicView,
             celebView,
+            spinnerView,
         }
     ){
         this.store = store;
@@ -12,6 +13,7 @@ export default class Controller{
         this.buttonView = buttonView;
         this.myPicView = myPicView;
         this.celebView = celebView;
+        this.spinnerView = spinnerView;
 
         this.subscribeViewEventes();
         this.render();
@@ -23,15 +25,17 @@ export default class Controller{
             const myPicURL = URL.createObjectURL(event.detail.file);
             this.store.myPic = myPicURL;
             this.store.myPicFile = event.detail.file;
-            this.render();
+            this.render('myPic');
         }).on("@find", async (event) => {
-            await this.store.findCeleb();
+            this.store.isLoading = true;
             this.render();
+            await this.store.findCeleb();
+            this.store.isLoading = false;
+            this.render('find');
         }).on("@reset", () => {
             this.store.reset();
             this.render();
         })
-        .on("@change", (event) => this.changeTab(event.detail.value));
     }
 
     changeTab(tab){
@@ -39,15 +43,23 @@ export default class Controller{
         this.render();
     }
 
-    render() {
+    render(view) {
         this.myPicView.hide();
         this.celebView.hide();
         this.buttonView.show(this.store.selectedTab);
+        this.spinnerView.hide();
 
-        if(this.store.myPic){
+        if(this.store.isLoading){
+            this.celebView.hide();
+            this.myPicView.hide();
+            this.spinnerView.show();
+        }
+
+        if(view === 'myPic'){
+            this.celebView.hide();
             this.myPicView.show(this.store.myPic)
         }
-        if(this.store.hasResult){
+        else if(view === 'find'){
             this.myPicView.hide();
             this.celebView.show(this.store.similarImgList, this.store.similarCeleb, this.store.similarConfidence);
         }

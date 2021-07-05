@@ -7,6 +7,7 @@ export default class Store {
         this.similarCeleb = ""
         this.similarImgList = [];
         this.hasResult = false;
+        this.isLoading = false;
     }
 
     async findCeleb() {
@@ -14,6 +15,8 @@ export default class Store {
 
         const data = new FormData();
         data.append('file', this.myPicFile);
+
+
 
         const celebData = await axios.post("https://kucc-celeb.herokuapp.com/uploadImage",data);
 
@@ -30,6 +33,7 @@ export default class Store {
             })
             this.similarImgList = celebImgData.data.items.map( item => item.thumbnail);
         }
+
     }
 
     reset() {
@@ -38,5 +42,6 @@ export default class Store {
         this.similarCeleb = "";
         this.similarImgList=[];
         this.hasResult=false;
+        this.isLoading = false;
     }
 }

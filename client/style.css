@@ -12,10 +12,12 @@ h1,h2{
     flex-direction: column;
     align-items: center;
 
+    position: relative;
+
     border: 3px solid black;
 
     width: 350px;
-    height: 600px;
+    height: 630px;
 
     margin: 15px auto;
 
@@ -155,7 +157,6 @@ img.my-pic{
     text-align: center;
     font-size: 12px;
 
-      position: absolute;
-
-      bottom: 10px;
+    position: absolute;
+    bottom: 30px;
   }

@@ -150,3 +150,12 @@ img.my-pic{
       opacity: 0;
     }
   }
+
+  .notice{
+    text-align: center;
+    font-size: 12px;
+
+      position: absolute;
+
+      bottom: 10px;
+  }

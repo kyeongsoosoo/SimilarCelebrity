@@ -9,7 +9,7 @@ export const ButtonType = {
 
 const ButtonLabel = {
     [ButtonType.MYPIC] : "사진을 선택하세요",
-    [ButtonType.FIND]: "실행할까요??",
+    [ButtonType.FIND]: "실행할까요",
     [ButtonType.RETRY]: "초기화합니다",
 }
 

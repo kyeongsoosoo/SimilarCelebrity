@@ -28,7 +28,6 @@ export default class Controller{
             await this.store.findCeleb();
             this.render();
         }).on("@reset", () => {
-            console.log('?')
             this.store.reset();
             this.render();
         })
@@ -48,9 +47,9 @@ export default class Controller{
         if(this.store.myPic){
             this.myPicView.show(this.store.myPic)
         }
-        if(this.store.similarImgList){
+        if(this.store.hasResult){
             this.myPicView.hide();
-            this.celebView.show(this.store.similarImgList);
+            this.celebView.show(this.store.similarImgList, this.store.similarCeleb, this.store.similarConfidence);
         }
     }
 }

@@ -9,7 +9,6 @@ export default class MyPicView extends View {
     }
 
     show(src) {
-        console.log(this.element)
         this.element.innerHTML = this.template.getPic(src);
         super.show();
     }
@@ -18,7 +17,6 @@ export default class MyPicView extends View {
 class Template {
     getPic(src) {
         return `
-            <div>Hi</div>
             <img class="my-pic" src = ${src} alt="my-pic"/>
         `
     }

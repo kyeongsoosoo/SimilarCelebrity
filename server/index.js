@@ -2,8 +2,6 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 8000;
 const multer = require("multer");
-var fs = require('fs');
-// const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const config = require('./config/key');
@@ -18,7 +16,7 @@ app.use(
   }),
 );
 
-var upload = multer().single("file");
+const upload = multer().single("file");
 
 app.use("/uploads", express.static("uploads"));
 
@@ -26,11 +24,11 @@ app.post("/uploadImage", (req, res) => {
   upload(req, res, (err) => {
 
 
-    var request = require('request');
+    const request = require('request');
   
-    var api_url = 'https://openapi.naver.com/v1/vision/celebrity'; // 유명인 인식
+    const api_url = 'https://openapi.naver.com/v1/vision/celebrity'; // 유명인 인식
 
-    var _formData = {
+    const _formData = {
       image:'image',
       image: req.file.buffer
     };
@@ -44,20 +42,13 @@ app.post("/uploadImage", (req, res) => {
 
 
 app.get('/find-image', (req, res) => {
-  var request = require('request');
+  const request = require('request');
   const keyword = req.query.keyword;
   const url = `https://openapi.naver.com/v1/search/image?query=${keyword}&display=4&start=1&sort=sim`
   request.get({url,
     headers: {'X-Naver-Client-Id':config.CLIENT_ID, 'X-Naver-Client-Secret': config.CLIENT_SECRET}},(error, response, body) => {
       return res.status(200).send(body);
    })
-
-});
-app.post('/face', function (req, res) {
-  var request = require('request');
-
-  var api_url = 'https://openapi.naver.com/v1/vision/celebrity'; // 유명인 인식
-  return res.status(200).send('hi')
 
 });
 

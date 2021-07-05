@@ -5,6 +5,8 @@ export default class Store {
         this.myPic = "";
         this.isFace = false;
         this.similarCeleb = ""
+        this.similarImgList = [];
+        this.hasResult = false;
     }
 
     async findCeleb() {
@@ -13,21 +15,21 @@ export default class Store {
         const data = new FormData();
         data.append('file', this.myPicFile);
 
-        const test = await axios.post("http://localhost:8000/uploadImage",data);
+        const celebData = await axios.post("http://localhost:8000/uploadImage",data);
 
-        this.isFace = test.data.info.faceCount > 0 ? true : false;
-        this.similarCeleb = this.isFace ? test.data.faces[0].celebrity.value : "";
-        this.similarConfidence = this.isFace ? test.data.faces[0].celebrity.confidence : "";
+        this.isFace = celebData.data.info ? true : false;
+        this.similarCeleb = this.isFace ? celebData.data.faces[0].celebrity.value : "";
+        this.similarConfidence = this.isFace ? parseInt((celebData.data.faces[0].celebrity.confidence)*100) : "";
+        this.hasResult=true;
 
-        const test2 = await axios.get("http://localhost:8000/find-image", {
-            params : {
-                keyword: encodeURIComponent(this.similarCeleb)
-            }
-        })
-        this.similarImgList = test2.data.items.map( item => item.thumbnail);
-
-
-        console.log(test2);
+        if(this.isFace){
+            const celebImgData = await axios.get("http://localhost:8000/find-image", {
+                params : {
+                    keyword: encodeURIComponent(this.similarCeleb)
+                }
+            })
+            this.similarImgList = celebImgData.data.items.map( item => item.thumbnail);
+        }
     }
 
     reset() {
@@ -35,5 +37,6 @@ export default class Store {
         this.isFace = false;
         this.similarCeleb = "";
         this.similarImgList=[];
+        this.hasResult=false;
     }
 }

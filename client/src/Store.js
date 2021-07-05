@@ -15,7 +15,7 @@ export default class Store {
         const data = new FormData();
         data.append('file', this.myPicFile);
 
-        const celebData = await axios.post("http://localhost:8000/uploadImage",data);
+        const celebData = await axios.post("https://kucc-celeb.herokuapp.com/uploadImage",data);
 
         this.isFace = celebData.data.info ? true : false;
         this.similarCeleb = this.isFace ? celebData.data.faces[0].celebrity.value : "";
@@ -23,7 +23,7 @@ export default class Store {
         this.hasResult=true;
 
         if(this.isFace){
-            const celebImgData = await axios.get("http://localhost:8000/find-image", {
+            const celebImgData = await axios.get("https://kucc-celeb.herokuapp.com/find-image", {
                 params : {
                     keyword: encodeURIComponent(this.similarCeleb)
                 }

@@ -6,7 +6,7 @@ import MyPicView from "./View/MyPicView";
 import CelebView from "./View/CelebView";
 import SpinnerView from "./View/SpinnerView";
 
-document.addEventListener("defer", main);
+document.addEventListener("DOMContentLoaded", main);
 
 function main() {
     const store = new Store();

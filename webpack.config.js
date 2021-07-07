@@ -1,6 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   entry: "./client/src/main.js",
@@ -24,8 +25,8 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
   },
@@ -42,12 +43,15 @@ module.exports = {
     hotOnly: true,
     historyApiFallback: true,
   },
-  plugins: [new webpack.HotModuleReplacementPlugin(), 
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(), 
+    new MiniCssExtractPlugin({filename: 'style.css'}),
     new HtmlWebpackPlugin({
     template: path.join(__dirname, './client/index.html'),
     minify: {
       removeComments: true,
       collapseWhitespace: true,
     },
-  }),],
+  }),
+],
 };

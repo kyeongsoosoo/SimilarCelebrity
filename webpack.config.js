@@ -47,7 +47,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(), 
     new MiniCssExtractPlugin({filename: 'style.css'}),
     new HtmlWebpackPlugin({
-    template: path.join(__dirname, './client/index.html'),
+    template: './client/index.html',
     minify: {
       removeComments: true,
       collapseWhitespace: true,

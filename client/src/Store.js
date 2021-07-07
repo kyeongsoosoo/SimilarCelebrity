@@ -16,7 +16,7 @@ export default class Store {
         const data = new FormData();
         data.append('file', this.myPicFile);
 
-
+        this.reset();
 
         const celebData = await axios.post("https://kucc-celeb.herokuapp.com/uploadImage",data);
 

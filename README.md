@@ -2,6 +2,8 @@
 
 ## 21.06.28 ~ 21.07.08
 
+[이번 프로젝트의 개발일지](https://www.notion.so/21-1-KUCC-7d8b1e40218648c1ae40ba028482e83d)
+
 [김정환님의 리액트 인프런 강좌](https://www.inflearn.com/course/%EB%A7%8C%EB%93%A4%EB%A9%B4%EC%84%9C-%ED%95%99%EC%8A%B5%ED%95%98%EB%8A%94-%EB%A6%AC%EC%95%A1%ED%8A%B8/dashboard)를 수강하고 난 뒤 제작한 사이드 프로젝트입니다. 
 <br>
 <br>
